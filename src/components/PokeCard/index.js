@@ -1,13 +1,14 @@
 import React from 'react';
 
-import { Container } from './styles';
-import src from '*.bmp';
+import Sprite from '../../assets/ditto.png';
+import { Item, Image, Title } from './styles';
 
-export default function PokeCard() {
+export default function PokeCard(props) {
+    const { img, title } = props;
     return (
-        <div>
-            <img src="" alt="" />
-            <span>Pokemon</span>
-        </div>
+        <Item>
+            <Image src={img ? img : Sprite} alt="Sprite example" />
+            <Title>{title ? title : "pokemon"}</Title>
+        </Item>
     );
 }

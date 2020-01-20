@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 
 import Header from '../../components/Header';
 
-import { Container } from './styles';
+import { Container, Box, Title } from './styles';
+
+import PokeCard from '../../components/PokeCard';
 
 import api from '../../services/api';
 
@@ -29,10 +31,12 @@ export default class Pokedex extends Component {
             <>
                 <Header />
                 <Container>
-                    <h1>Pokemon List</h1>
-                    {pokemons.map(pokemon => (
-                        <li key={pokemon.name}>{pokemon.name}-</li>
-                    ))}
+                    <Title>Pokedex</Title>
+                    <Box>
+                        {pokemons.map(pokemon => (
+                            <PokeCard key={pokemon.name} title={pokemon.name} />
+                        ))}
+                    </Box>
                 </Container>
             </>
         );
