@@ -7,6 +7,7 @@ import { Container, Box, Head, PokeIndice, Title, ListTypes, Type, Circle, Image
 import api from '../../services/api';
 
 export default function PokemonProfile({ match }) {
+
     const [dataPokemon, setDataPokemon] = useState({});
     const [dataTypes, setDataTypes] = useState([]);
     const [dataStats, setDataStat] = useState([]);
@@ -15,6 +16,7 @@ export default function PokemonProfile({ match }) {
     const [pokeIndice, setPokeIndice] = useState('');
 
     const reqPokemons = async () => {
+
         const response = await api.get(`pokemon/${match.params.pokeindice}`);
 
         const pokemon = response.data;
@@ -28,7 +30,6 @@ export default function PokemonProfile({ match }) {
         setDataAbility(abilities);
         setPokeIndice(match.params.pokeindice);
         setLoading(false);
-
     }
     useEffect(() => {
         reqPokemons();
@@ -52,7 +53,7 @@ export default function PokemonProfile({ match }) {
                                     ))}
                                 </ListTypes>
                             </Item>
-                            <Circle>
+                            <Circle animated>
                                 <Image src={dataPokemon.sprites.front_default} alt={dataPokemon.name} />
                             </Circle>
                         </Head>
@@ -62,8 +63,14 @@ export default function PokemonProfile({ match }) {
                             {dataStats.map(dataStat => (
                                 <Text key={dataStat.stat.name}> <Soft>{dataStat.stat.name}:</Soft> <Strong>{dataStat.base_stat}</Strong></Text>
                             ))}
-                            <Text><Soft>Weight:</Soft> <Strong>{dataPokemon.weight}</Strong></Text>
-                            <Text><Soft>Height:</Soft><Strong>{dataPokemon.height}</Strong></Text>
+                            <Text>
+                                <Soft>Weight:</Soft>
+                                <Strong>{dataPokemon.weight}</Strong>
+                            </Text>
+                            <Text>
+                                <Soft>Height:</Soft>
+                                <Strong>{dataPokemon.height}</Strong>
+                            </Text>
                             <Abilities>
                                 <StrongTitle>Abilities</StrongTitle>
                                 {dataAbilities.map(dataAbility => (

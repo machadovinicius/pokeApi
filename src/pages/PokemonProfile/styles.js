@@ -1,5 +1,18 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import ColorTypes from '../../global/ColorTypes';
+
+
+const widthFade = keyframes`
+  from {
+    width: 0;
+    height: 0;
+  }
+
+  to {
+    width: 96px;
+    height: auto; 
+  }
+`;
 
 export const Container = styled.div`
     max-width: 900px;
@@ -72,6 +85,8 @@ export const Circle = styled.div`
  `;
 export const Image = styled.img`
     opacity: 1;
+    animation: ${widthFade} 1s;
+    transition: all 1s ease-in;
 `;
 export const Content = styled.div`
     width: 100%;
