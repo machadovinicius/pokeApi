@@ -18,3 +18,10 @@ export const Title = styled.h1`
     color: #274987;
     margin: 20px 0;
 `;
+export const Previous = styled.button`
+
+`;
+
+export const Next = styled.button`
+
+`;

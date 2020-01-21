@@ -1,44 +1,62 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Header from '../../components/Header';
 
-import { Container, Box, Title } from './styles';
+import { Container, Box, Title, Previous, Next } from './styles';
 
 import PokeCard from '../../components/PokeCard';
 
 import api from '../../services/api';
 
-export default class Pokedex extends Component {
+export default function Pokedex() {
 
-    state = {
-        pokemons: [],
-    };
-    async componentDidMount() {
+    const [pokemons, setPokemons] = useState([]);
+    const [nextPage, setNextPage] = useState('');
+    const [previousPage, setPreviousPage] = useState('');
+
+    const reqPokemons = async () => {
         const response = await api.get('pokemon/');
-
         const listpokemon = response.data.results;
-
-        console.log(listpokemon);
-
-        this.setState({
-            pokemons: listpokemon,
-        });
+        const page = response.data.next;
+        setPokemons(listpokemon);
+        setNextPage(page);
     }
 
-    render() {
-        const { pokemons } = this.state;
-        return (
-            <>
-                <Header />
-                <Container>
-                    <Title>Pokedex</Title>
-                    <Box>
-                        {pokemons.map(pokemon => (
-                            <PokeCard key={pokemon.name} title={pokemon.name} />
-                        ))}
-                    </Box>
-                </Container>
-            </>
-        );
+    const previousPageReq = async () => {
+        console.log(previousPage);
+        let [, params] = previousPage.split("/v2/");
+        const response = await api.get(params);
+        setNextPage(response.data.next);
+        setPokemons(response.data.results);
+        setPreviousPage(response.data.previous);
+
     }
+    const nextPageReq = async () => {
+        let [, params] = nextPage.split("/v2/");
+        const response = await api.get(params);
+        setPreviousPage(response.data.previous);
+        setPokemons(response.data.results);
+        setNextPage(response.data.next);
+    }
+
+    useEffect(() => {
+        reqPokemons();
+    }, []);
+
+
+    return (
+        <>
+            <Header />
+            <Container>
+                <Title>Pokedex</Title>
+                <Box>
+                    {pokemons.map(pokemon => (
+                        <PokeCard key={pokemon.name} title={pokemon.name} url={pokemon.url} />
+                    ))}
+                </Box>
+                <Previous onClick={previousPageReq}>Anterior</Previous>
+                <Next onClick={nextPageReq}>Próximo</Next>
+            </Container>
+        </>
+    );
 }
