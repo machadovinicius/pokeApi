@@ -1,17 +1,21 @@
 import styled from 'styled-components';
 import ColorTypes from '../../global/ColorTypes';
 
+
 export const Item = styled.div`
     width: 24%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
     margin: 8px 0;
-    padding: 15px 15px;
+    padding: 15px 20px;
     box-shadow: 0 2px 2px rgb(0, 0, 0, 0.2);
     border-radius: 10px;
     background-color: ${ props => props.type ? ColorTypes[props.type] : '#000'};
+    a{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        width: 100%;
+    }
  `;
 export const Circle = styled.div`
     width: 40%;
@@ -25,7 +29,7 @@ export const Circle = styled.div`
 export const Info = styled.div`
     width: 50%;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     flex-wrap: wrap;
  `;
@@ -36,19 +40,19 @@ export const Image = styled.img`
 export const Title = styled.span`
     display: block;
     width: 100%;
-    text-align: center;
+    text-align: left;
     font-size: 16px;
     text-transform: uppercase;
     color: #fff;
 `;
 
-export const ListType = styled.ul`
+export const ListTypes = styled.ul`
     width: 50%;
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
 `;
-export const Types = styled.li`
+export const Type = styled.li`
     color: #fff;
     padding: 3px 10px;
     margin-top: 10px;

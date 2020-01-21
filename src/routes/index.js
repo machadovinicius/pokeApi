@@ -10,7 +10,7 @@ export default function Routes() {
     return (
         <Switch>
             <Route path="/" exact component={Pokedex} />
-            <Route path="/PokemonProfile/" component={PokemonProfile} />
+            <Route path="/PokemonProfile/:pokeindice" component={PokemonProfile} />
             <Route path="/berries/" component={Berries} />
         </Switch>
     );

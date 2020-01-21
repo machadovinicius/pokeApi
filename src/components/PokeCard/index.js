@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 
-import { Item, Image, Title, Circle, ListType, Types, PokeIndice, Info } from "./styles";
+import { Item, Image, Title, Circle, ListTypes, Type, PokeIndice, Info } from "./styles";
+
+import { Link } from 'react-router-dom';
 
 import api from "../../services/api";
 
@@ -9,7 +11,7 @@ export default function PokeCard(props) {
     const [dataPokemon, setDataPokemon] = useState({});
     const [loading, setLoading] = useState(true);
     const [specie, setSpecie] = useState('');
-    const [types, setType] = useState([]);
+    const [dataTypes, setDataType] = useState([]);
     const [pokeIndice, setPokeIndice] = useState('');
 
     function getPokeId(url) {
@@ -25,7 +27,7 @@ export default function PokeCard(props) {
         setPokeIndice(indice);
         setDataPokemon(response.data);
         setSpecie(response.data.species.url);
-        setType(response.data.types);
+        setDataType(response.data.types);
         setLoading(false);
     }
     useEffect(() => {
@@ -38,18 +40,20 @@ export default function PokeCard(props) {
                 <></>
                 :
                 <Item type={dataPokemon.types[0].type.name}>
-                    <PokeIndice>#{pokeIndice}</PokeIndice>
-                    <Info>
-                        <Title>{title ? title : "pokemon"}</Title>
-                        <ListType>
-                            {types.map(type => (
-                                <Types key={type.type.name}> {type.type.name}</Types>
-                            ))}
-                        </ListType>
-                    </Info>
-                    <Circle>
-                        <Image src={dataPokemon.sprites.front_default} />
-                    </Circle>
+                    <Link to={`/pokemonProfile/${pokeIndice}`}>
+                        <PokeIndice>#{pokeIndice}</PokeIndice>
+                        <Info>
+                            <Title>{title ? title : "pokemon"}</Title>
+                            <ListTypes>
+                                {dataTypes.map(dataType => (
+                                    <Type key={dataType.type.name}> {dataType.type.name}</Type>
+                                ))}
+                            </ListTypes>
+                        </Info>
+                        <Circle>
+                            <Image src={dataPokemon.sprites.front_default} alt={dataPokemon.name} />
+                        </Circle>
+                    </Link>
                 </Item >
             }
         </>
