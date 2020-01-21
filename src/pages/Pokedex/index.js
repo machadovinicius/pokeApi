@@ -23,14 +23,15 @@ export default function Pokedex() {
     }
 
     const previousPageReq = async () => {
-        console.log(previousPage);
+        //console.log(previousPage);
         let [, params] = previousPage.split("/v2/");
         const response = await api.get(params);
-        setNextPage(response.data.next);
-        setPokemons(response.data.results);
-        setPreviousPage(response.data.previous);
-
+        const { next, previous, results } = response.data;
+        setNextPage(next);
+        setPokemons(results);
+        setPreviousPage(previous);
     }
+
     const nextPageReq = async () => {
         let [, params] = nextPage.split("/v2/");
         const response = await api.get(params);

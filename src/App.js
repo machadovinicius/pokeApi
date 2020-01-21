@@ -2,7 +2,7 @@ import React from 'react';
 import { Router } from 'react-router-dom';
 import Routes from './routes';
 import history from './services/history';
-import GlobalStyle from './styles/GlobalStyle';
+import GlobalStyle from './global/GlobalStyle';
 
 
 function App() {
