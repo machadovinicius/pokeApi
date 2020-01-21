@@ -3,31 +3,42 @@ import ColorTypes from '../../global/ColorTypes';
 
 
 export const Item = styled.div`
-    width: 24%;
-    margin: 8px 0;
-    padding: 15px 20px;
+    width: 48%;
+    padding: 10px 10px;
+    margin: 6px 0;
     box-shadow: 0 2px 2px rgb(0, 0, 0, 0.2);
     border-radius: 10px;
     background-color: ${ props => props.type ? ColorTypes[props.type] : '#000'};
     a{
         display: flex;
-        justify-content: space-between;
-        align-items: center;
+        height: 100%;
+        flex-direction: row;
+        justify-content: flex-start;
         flex-wrap: wrap;
         width: 100%;
+        @media only screen and (min-width: 769px) {
+            justify-content: center;
+        }
+    }
+    @media only screen and (min-width: 769px) {
+        width: 19%;
     }
  `;
 export const Circle = styled.div`
-    width: 40%;
-    height: 80%;
+    width: 100%;
+    height: auto;
     border-radius: 50%;
     background-color: #ffffff33;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 20px;
+    @media only screen and (min-width: 769px) {
+        width: 50%;
+    }
  `;
 export const Info = styled.div`
-    width: 50%;
+    width: 100%;
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -36,29 +47,32 @@ export const Info = styled.div`
 export const Image = styled.img`
 
  `;
-
 export const Title = styled.span`
     display: block;
     width: 100%;
-    text-align: left;
-    font-size: 16px;
+    text-align: center;
+    font-size: 1em;
     text-transform: uppercase;
     color: #fff;
 `;
 
 export const ListTypes = styled.ul`
-    width: 50%;
+    width: 100%;
+    height: 70px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start;
+    justify-content: center;
 `;
 export const Type = styled.li`
+    width: 100%;
+    height: 25px;
     color: #fff;
     padding: 3px 10px;
     margin-top: 10px;
     text-transform: capitalize;
     background-color: #ffffff33;
     border-radius: 15px;
+    text-align: center;
 `;
 export const PokeIndice = styled.span`
     display: block;

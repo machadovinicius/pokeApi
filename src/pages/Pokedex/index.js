@@ -49,7 +49,7 @@ export default function Pokedex() {
         <>
             <Header />
             <Container>
-                <Title>Pokedex</Title>
+                <Title>Esta é a sua Pokedex</Title>
                 <Box>
                     {pokemons.map(pokemon => (
                         <PokeCard key={pokemon.name} title={pokemon.name} url={pokemon.url} />

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import { Item, Image, Title, Circle, ListTypes, Type, PokeIndice, Info } from "./styles";
+import { Item, Image, Title, Circle, Type, ListTypes, PokeIndice, Info } from "./styles";
 
 import { Link } from 'react-router-dom';
 
@@ -10,11 +10,10 @@ export default function PokeCard(props) {
     const { title, url } = props;
     const [dataPokemon, setDataPokemon] = useState({});
     const [loading, setLoading] = useState(true);
-    const [specie, setSpecie] = useState('');
     const [dataTypes, setDataType] = useState([]);
     const [pokeIndice, setPokeIndice] = useState('');
 
-    function getPokeId(url) {
+    const getPokeId = (url) => {
         let [, id] = url.split("/pokemon/");
         return id;
     }
@@ -22,14 +21,17 @@ export default function PokeCard(props) {
     const reqAPI = async () => {
         let id = getPokeId(url);
         const response = await api.get(`pokemon/${id}`);
-        //console.log(response.data.types);
+
         const [indice,] = id.split("/");
+        const pokemons = response.data;
+        const types = response.data.types;
+
         setPokeIndice(indice);
-        setDataPokemon(response.data);
-        setSpecie(response.data.species.url);
-        setDataType(response.data.types);
+        setDataPokemon(pokemons);
+        setDataType(types);
         setLoading(false);
     }
+
     useEffect(() => {
         reqAPI();
     }, [loading]);
@@ -54,7 +56,7 @@ export default function PokeCard(props) {
                             <Image src={dataPokemon.sprites.front_default} alt={dataPokemon.name} />
                         </Circle>
                     </Link>
-                </Item >
+                </Item>
             }
         </>
     );

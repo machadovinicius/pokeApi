@@ -15,7 +15,7 @@ export const Box = styled.div`
 
  `;
 export const Title = styled.h1`
-    font-size: 28px;
+    font-size: 18px;
     color: #274987;
     margin: 20px 0;
 `;
