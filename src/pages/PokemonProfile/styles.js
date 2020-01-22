@@ -10,7 +10,7 @@ const widthFade = keyframes`
 
   to {
     width: 96px;
-    height: auto; 
+    height: auto;
   }
 `;
 
@@ -24,7 +24,7 @@ export const Box = styled.div`
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-   
+
 `;
 export const Head = styled.div`
     background-color: ${ props => props.typeColor ? ColorTypes[props.typeColor] : '#000'};
@@ -74,8 +74,8 @@ export const Type = styled.li`
     font-size: 14px;
 `;
 export const Circle = styled.div`
-    width: 150px;
-    height: 150px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
     background-color: #ffffff33;
     display: flex;
@@ -95,7 +95,7 @@ export const Content = styled.div`
     border-bottom-right-radius: 15px;
     border-bottom-left-radius: 15px;
     z-index: 1;
-    padding: 20px;
+    padding: 30px 20px;
 `;
 export const Abilities = styled.ul`
 
@@ -107,7 +107,7 @@ export const Text = styled.span`
     font-size: 14px;
     line-height: 22px;
     justify-content: space-between;
-    
+
 `;
 export const Strong = styled.span`
     display: block;
@@ -136,4 +136,25 @@ export const StrongTitle = styled.span`
     font-weight: bold;
     font-size: 15px;
     padding: 10px 0;
+`;
+export const NavBar = styled.div`
+    display: flex;
+    width: 100%;
+    justify-content: flex-start;
+    border-bottom: 1px solid #ccc;
+`;
+export const NavItem = styled.span`
+    font-size: 16px;
+    width: 50%;
+    color: #595555;
+    padding: 0 10px 5px 5px;
+    border-bottom: ${props => props.active ? '2px solid #5984bf' : '0'};
+    cursor: pointer;
+`;
+export const CardBox = styled.div`
+    display: block;
+    width: 100%;
+`;
+export const Card = styled.div`
+    width: 100%;
 `;

@@ -19,10 +19,9 @@ export const Title = styled.h1`
     color: #274987;
     margin: 20px 0;
 `;
-export const Previous = styled.button`
-
+export const Pagination = styled.h1`
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
 `;
 
-export const Next = styled.button`
-
-`;

@@ -5,10 +5,11 @@ import ColorTypes from '../../global/ColorTypes';
 export const Item = styled.div`
     width: 48%;
     padding: 10px 10px;
+    min-height: 247px;
     margin: 6px 0;
     box-shadow: 0 2px 2px rgb(0, 0, 0, 0.2);
     border-radius: 10px;
-    background-color: ${ props => props.type ? ColorTypes[props.type] : '#000'};
+    background-color: ${ props => props.type ? ColorTypes[props.type] : '#ccc   '};
     a{
         display: flex;
         height: 100%;

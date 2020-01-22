@@ -39,7 +39,9 @@ export default function PokeCard(props) {
     return (
         <>
             {loading ?
-                <></>
+                <Item>
+
+                </Item>
                 :
                 <Item type={dataPokemon.types[0].type.name}>
                     <Link to={`/pokemonProfile/${pokeIndice}`}>

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 
 import Header from '../../components/Header';
+import ArrowButton from '../../components/ArrowButton';
 
-import { Container, Box, Title, Previous, Next } from './styles';
+import { Container, Box, Title, Pagination } from './styles';
 
 import PokeCard from '../../components/PokeCard';
 
@@ -44,19 +45,24 @@ export default function Pokedex() {
         reqPokemons();
     }, []);
 
-
     return (
         <>
             <Header />
             <Container>
                 <Title>Esta é a sua Pokedex</Title>
+                <Pagination>
+                    <ArrowButton fuc={previousPageReq} label="Previous" />
+                    <ArrowButton func={nextPageReq} label="Next" />
+                </Pagination>
                 <Box>
                     {pokemons.map(pokemon => (
                         <PokeCard key={pokemon.name} title={pokemon.name} url={pokemon.url} />
                     ))}
                 </Box>
-                <Previous onClick={previousPageReq}>Anterior</Previous>
-                <Next onClick={nextPageReq}>Próximo</Next>
+                <Pagination>
+                    <ArrowButton func={previousPageReq} label="Previous" />
+                    <ArrowButton func={nextPageReq} label="Next" />
+                </Pagination>
             </Container>
         </>
     );

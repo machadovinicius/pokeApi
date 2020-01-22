@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
 import pokemonLogo from '../../assets/pokemon_logo.png';
-import closeIcon from '../../assets/close.png';
 
 import { Container, NavBar, Image, Menu, ListMenu, Item } from './styles';
 

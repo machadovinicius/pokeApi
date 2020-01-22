@@ -44,10 +44,10 @@ export const ListMenu = styled.ul`
     position: absolute;
     z-index: 3;
     top: 0;
-    left: ${props => props.active ? '0' : '-3000px'};
+    left: ${props => props.active ? '0' : '-3500px'};
     padding: 10% 0;
     background: #ef5350;
-    transition: all .7s linear;
+    transition: all 1s ease-in-out;
     img{
         margin-bottom: 30px;
     }

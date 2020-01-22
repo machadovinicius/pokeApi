@@ -2,7 +2,28 @@ import React, { useState, useEffect } from 'react';
 
 import Header from '../../components/Header';
 
-import { Container, Box, Head, PokeIndice, Title, ListTypes, Type, Circle, Image, Content, Abilities, Item, Text, TitleConent, Soft, Strong, StrongTitle } from './styles';
+import {
+    Container,
+    Box,
+    Head,
+    PokeIndice,
+    Title,
+    ListTypes,
+    Type,
+    Circle,
+    Image,
+    Content,
+    Abilities,
+    Item,
+    Text,
+    NavBar,
+    NavItem,
+    Soft,
+    Strong,
+    StrongTitle,
+    CardBox,
+    Card
+} from './styles';
 
 import api from '../../services/api';
 
@@ -13,7 +34,7 @@ export default function PokemonProfile({ match }) {
     const [dataStats, setDataStat] = useState([]);
     const [dataAbilities, setDataAbility] = useState([]);
     const [dataSpecies, setDataSpecie] = useState({});
-    const [dataEvolves, setDataEvolves] = useState([]);
+    const [dataEvolvesName, setDataEvolvesName] = useState([]);
     const [loading, setLoading] = useState(true);
     const [pokeIndice, setPokeIndice] = useState('');
 
@@ -36,18 +57,29 @@ export default function PokemonProfile({ match }) {
         setLoading(false);
     }
 
-    const reqEvolutions = async () => {
+    const reqEvolvessName = async () => {
         let [, reqSpecie] = dataSpecies.split("v2");
         const response = await api.get(reqSpecie);
         const chain = response.data.evolution_chain.url;
         let [, reqChain] = chain.split("v2");
         const responseChain = await api.get(reqChain);
         const evolves = responseChain.data.chain.evolves_to;
-
-        setDataEvolves(evolves);
-        console.log(evolves);
-
+        const listEvolvesName = evolves.map(elemento => elemento.species.name);
+        console.log(listEvolvesName);
+        setDataEvolvesName(listEvolvesName);
     }
+
+    const handleTab = () => {
+        console.log('clicou');
+    }
+    // const reqDataEvolves = async () => {
+
+    //     const response = await api.get(reqSpecie);
+    // }
+    useEffect(() => {
+        reqPokemons();
+    }, [loading]);
+
     useEffect(() => {
         reqPokemons();
     }, [loading]);
@@ -75,25 +107,35 @@ export default function PokemonProfile({ match }) {
                             </Circle>
                         </Head>
                         <Content>
-                            <TitleConent onClick={reqEvolutions}>About</TitleConent>
-                            <StrongTitle>Stats</StrongTitle>
-                            {dataStats.map(dataStat => (
-                                <Text key={dataStat.stat.name}> <Soft>{dataStat.stat.name}:</Soft> <Strong>{dataStat.base_stat}</Strong></Text>
-                            ))}
-                            <Text>
-                                <Soft>Weight:</Soft>
-                                <Strong>{dataPokemon.weight}</Strong>
-                            </Text>
-                            <Text>
-                                <Soft>Height:</Soft>
-                                <Strong>{dataPokemon.height}</Strong>
-                            </Text>
-                            <Abilities>
-                                <StrongTitle>Abilities</StrongTitle>
-                                {dataAbilities.map(dataAbility => (
-                                    <Text key={dataAbility.ability.name}> <Soft>{dataAbility.ability.name}</Soft></Text>
-                                ))}
-                            </Abilities>
+                            <NavBar>
+                                <NavItem active onClick={handleTab}>About</NavItem>
+                                <NavItem onClick={reqEvolvessName} onClick={handleTab('evolutio')}>Evolution</NavItem>
+                            </NavBar>
+                            <CardBox>
+                                <Card active={true}>
+                                    <StrongTitle>Stats</StrongTitle>
+                                    {dataStats.map(dataStat => (
+                                        <Text key={dataStat.stat.name}> <Soft>{dataStat.stat.name}:</Soft> <Strong>{dataStat.base_stat}</Strong></Text>
+                                    ))}
+                                    <Text>
+                                        <Soft>Weight:</Soft>
+                                        <Strong>{dataPokemon.weight}</Strong>
+                                    </Text>
+                                    <Text>
+                                        <Soft>Height:</Soft>
+                                        <Strong>{dataPokemon.height}</Strong>
+                                    </Text>
+                                    <Abilities>
+                                        <StrongTitle>Abilities</StrongTitle>
+                                        {dataAbilities.map(dataAbility => (
+                                            <Text key={dataAbility.ability.name}> <Soft>{dataAbility.ability.name}</Soft></Text>
+                                        ))}
+                                    </Abilities>
+                                </Card>
+                                <Card active={false}>
+                                    <Text>Poke evolution</Text>
+                                </Card>
+                            </CardBox>
                         </Content>
                     </Box>
                 </Container>
