@@ -1,4 +1,5 @@
 export default {
+    //colors types pokemons
     normal: '#aaaa99',
     fire: '#ff4422',
     water: '#3399ff',
@@ -17,4 +18,11 @@ export default {
     dark: "#754",
     steel: "#aab",
     fairy: "#e9e",
+
+    //Colors flavors berries
+    sweet: "#FF94C7",
+    dry: "#EECA87",
+    bitter: "#A5613A",
+    spicy: "#FA6969",
+    sour: "#9CD048",
 };

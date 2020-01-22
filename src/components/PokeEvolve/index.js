@@ -2,8 +2,11 @@ import React from 'react';
 
 // import { Container } from './styles';
 
-export default function PokeEvolve() {
+export default function PokeEvolve(props) {
     return (
-        <div />
+        <Container>
+            <LevelUp></LevelUp>
+            <Image src={} alt={} />
+        </Container>
     );
 }

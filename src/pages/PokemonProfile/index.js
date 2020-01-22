@@ -64,22 +64,22 @@ export default function PokemonProfile({ match }) {
         let [, reqChain] = chain.split("v2");
         const responseChain = await api.get(reqChain);
         const evolves = responseChain.data.chain.evolves_to;
-        const listEvolvesName = evolves.map(elemento => elemento.species.name);
-        console.log(listEvolvesName);
-        setDataEvolvesName(listEvolvesName);
+
+        const arrayGarimpado = evolves.map(elemento => {
+            let nomeEspecie = elemento.species.name;
+            let nomeEvolucoes = elemento.evolves_to.map(e => e.species.name);
+            return [nomeEspecie, ...nomeEvolucoes];
+        });
+
+        console.log(arrayGarimpado);
+
+
+        setDataEvolvesName(evolves);
     }
 
     const handleTab = () => {
         console.log('clicou');
     }
-    // const reqDataEvolves = async () => {
-
-    //     const response = await api.get(reqSpecie);
-    // }
-    useEffect(() => {
-        reqPokemons();
-    }, [loading]);
-
     useEffect(() => {
         reqPokemons();
     }, [loading]);
@@ -109,7 +109,7 @@ export default function PokemonProfile({ match }) {
                         <Content>
                             <NavBar>
                                 <NavItem active onClick={handleTab}>About</NavItem>
-                                <NavItem onClick={reqEvolvessName} onClick={handleTab('evolutio')}>Evolution</NavItem>
+                                <NavItem onClick={reqEvolvessName}>Evolution</NavItem>
                             </NavBar>
                             <CardBox>
                                 <Card active={true}>
