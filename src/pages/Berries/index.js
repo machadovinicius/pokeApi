@@ -17,12 +17,10 @@ export default function Berries() {
         const responseFlavors = await api.get('berry-flavor/');
         const { results } = responseFlavors.data;
         setDataFlavor(results);
-        console.log(results);
         const responseCountBerries = await api.get('berry/');
         const { count } = responseCountBerries.data;
         const responseBerries = await api.get(`berry?offset=0&limit=${count}`);
         setDataBerries(responseBerries.data.results);
-        console.log(responseBerries.data.results);
         setloading(false);
     }
 
@@ -49,7 +47,7 @@ export default function Berries() {
                     </CardFlavors>
                     <CardBerries>
                         {dataBerries.map(dataBerry => (
-                            <Berry key={dataBerry.name} title={dataBerry.name} />
+                            <Berry key={dataBerry.name} title={dataBerry.name} url={dataBerry.url} />
                         ))}
                     </CardBerries>
                 </Container>

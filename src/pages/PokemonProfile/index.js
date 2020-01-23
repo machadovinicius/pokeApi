@@ -37,6 +37,8 @@ export default function PokemonProfile({ match }) {
     const [dataEvolvesName, setDataEvolvesName] = useState([]);
     const [loading, setLoading] = useState(true);
     const [pokeIndice, setPokeIndice] = useState('');
+    const [tabAbout, setTabAbout] = useState(true);
+    const [tabEvolution, setTabEvolution] = useState(false);
 
     const reqPokemons = async () => {
         const response = await api.get(`pokemon/${match.params.pokeindice}`);
@@ -65,20 +67,26 @@ export default function PokemonProfile({ match }) {
         const responseChain = await api.get(reqChain);
         const evolves = responseChain.data.chain.evolves_to;
 
-        const arrayGarimpado = evolves.map(elemento => {
-            let nomeEspecie = elemento.species.name;
-            let nomeEvolucoes = elemento.evolves_to.map(e => e.species.name);
-            return [nomeEspecie, ...nomeEvolucoes];
+        const reqEvolvesName = evolves.map(elemento => {
+            let nameSpecie = elemento.species.name;
+            let NameEvolves = elemento.evolves_to.map(e => e.species.name);
+            return [nameSpecie, ...NameEvolves];
         });
 
-        console.log(arrayGarimpado);
-
-
-        setDataEvolvesName(evolves);
+        console.log(reqEvolvesName);
     }
 
-    const handleTab = () => {
-        console.log('clicou');
+    const handleTab = (tabIndex) => {
+        if (tabIndex == "about" && tabAbout == false) {
+            setTabEvolution(false);
+            setTabAbout(true);
+            console.log('about');
+        }
+        else if (tabIndex == "evolution" & tabEvolution == false) {
+            setTabAbout(false);
+            setTabEvolution(true);
+            console.log('evolution');
+        }
     }
     useEffect(() => {
         reqPokemons();
@@ -108,11 +116,11 @@ export default function PokemonProfile({ match }) {
                         </Head>
                         <Content>
                             <NavBar>
-                                <NavItem active onClick={handleTab}>About</NavItem>
-                                <NavItem onClick={reqEvolvessName}>Evolution</NavItem>
+                                <NavItem active={tabAbout} onClick={() => handleTab("about")}>About</NavItem>
+                                <NavItem active={tabEvolution} onClick={() => handleTab("evolution")}>Evolution</NavItem>
                             </NavBar>
                             <CardBox>
-                                <Card active={true}>
+                                <Card active={tabAbout}>
                                     <StrongTitle>Stats</StrongTitle>
                                     {dataStats.map(dataStat => (
                                         <Text key={dataStat.stat.name}> <Soft>{dataStat.stat.name}:</Soft> <Strong>{dataStat.base_stat}</Strong></Text>
@@ -132,7 +140,7 @@ export default function PokemonProfile({ match }) {
                                         ))}
                                     </Abilities>
                                 </Card>
-                                <Card active={false}>
+                                <Card active={tabEvolution}>
                                     <Text>Poke evolution</Text>
                                 </Card>
                             </CardBox>

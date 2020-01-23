@@ -154,7 +154,15 @@ export const NavItem = styled.span`
 export const CardBox = styled.div`
     display: block;
     width: 100%;
+    min-height: 382px;
 `;
 export const Card = styled.div`
-    width: 100%;
+    display: block;
+    visibility: ${props => props.active ? 'visible' : 'hidden'};
+    height: ${props => props.active ? '100%' : '0'};
+    width: ${props => props.active ? '100%' : '0'};
+    opacity: ${props => props.active ? '1' : '0'};
+    transition: all .5s ease-in-out;
+    transition: visibility .1s ease-in-out;
+
 `;
