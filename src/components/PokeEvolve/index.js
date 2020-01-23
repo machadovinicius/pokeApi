@@ -1,12 +1,45 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-// import { Container } from './styles';
+import { Container, Card, Item, Image, Circle } from './styles';
+
+import evolteTo from '../../assets/arrow_down.png';
+
+import { Link } from 'react-router-dom';
+import api from '../../services/api';
 
 export default function PokeEvolve(props) {
+    const { pokeIndice, func } = props;
+    const [pokeImg, setPokeImg] = useState('');
+    const [typeEolve, setTypeEolve] = useState('');
+    const [loading, setLoading] = useState(true);
+
+    const getImage = async () => {
+        const response = await api.get(`pokemon/${pokeIndice}`);
+        const primaryType = response.data.types[0].type.name;
+        setTypeEolve(primaryType);
+        setPokeImg(response.data.sprites.front_default);
+        setLoading(false);
+    }
+    useEffect(() => {
+        getImage();
+    }, [loading]);
+
     return (
-        <Container>
-            <LevelUp></LevelUp>
-            <Image src={} alt={} />
-        </Container>
+        <>
+            {
+                loading ?
+                    <Container />
+                    :
+                    <Container>
+                        <Item><Image src={evolteTo} alt="Evolves to" /></Item>
+                        <Link to={`/pokemonProfile/${pokeIndice}`} onClick={func}>
+                            <Card type={typeEolve}>
+                                <Circle><Image src={pokeImg} alt={pokeIndice} /></Circle>
+                                <Item>{pokeIndice}</Item>
+                            </Card>
+                        </Link>
+                    </Container>
+            }
+        </>
     );
 }

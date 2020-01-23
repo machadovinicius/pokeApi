@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import Header from '../../components/Header';
+import PokeEvolve from '../../components/PokeEvolve';
 
 import {
     Container,
@@ -33,8 +34,7 @@ export default function PokemonProfile({ match }) {
     const [dataTypes, setDataType] = useState([]);
     const [dataStats, setDataStat] = useState([]);
     const [dataAbilities, setDataAbility] = useState([]);
-    const [dataSpecies, setDataSpecie] = useState({});
-    const [dataEvolvesName, setDataEvolvesName] = useState([]);
+    const [dataEvolvesNames, setDataEvolvesName] = useState([]);
     const [loading, setLoading] = useState(true);
     const [pokeIndice, setPokeIndice] = useState('');
     const [tabAbout, setTabAbout] = useState(true);
@@ -42,7 +42,6 @@ export default function PokemonProfile({ match }) {
 
     const reqPokemons = async () => {
         const response = await api.get(`pokemon/${match.params.pokeindice}`);
-
         const pokemon = response.data;
         const Types = response.data.types;
         const stats = response.data.stats;
@@ -50,42 +49,35 @@ export default function PokemonProfile({ match }) {
         const species = response.data.species.url;
 
         //set datas in states
+        setPokeIndice(match.params.pokeindice);
         setDataPokemon(pokemon);
         setDataType(Types);
         setDataStat(stats);
         setDataAbility(abilities);
-        setDataSpecie(species);
-        setPokeIndice(match.params.pokeindice);
         setLoading(false);
-    }
 
-    const reqEvolvessName = async () => {
-        let [, reqSpecie] = dataSpecies.split("v2");
-        const response = await api.get(reqSpecie);
-        const chain = response.data.evolution_chain.url;
+        let [, reqSpecie] = species.split("v2");
+        const responseSpecie = await api.get(reqSpecie);
+        const chain = responseSpecie.data.evolution_chain.url;
         let [, reqChain] = chain.split("v2");
         const responseChain = await api.get(reqChain);
         const evolves = responseChain.data.chain.evolves_to;
-
+        console.log(responseChain.data);
         const reqEvolvesName = evolves.map(elemento => {
             let nameSpecie = elemento.species.name;
             let NameEvolves = elemento.evolves_to.map(e => e.species.name);
             return [nameSpecie, ...NameEvolves];
         });
-
-        console.log(reqEvolvesName);
+        setDataEvolvesName(reqEvolvesName);
     }
-
     const handleTab = (tabIndex) => {
-        if (tabIndex == "about" && tabAbout == false) {
+        if (tabIndex === "about" && tabAbout === false) {
             setTabEvolution(false);
             setTabAbout(true);
-            console.log('about');
         }
-        else if (tabIndex == "evolution" & tabEvolution == false) {
+        else if (tabIndex === "evolution" & tabEvolution === false) {
             setTabAbout(false);
             setTabEvolution(true);
-            console.log('evolution');
         }
     }
     useEffect(() => {
@@ -141,7 +133,11 @@ export default function PokemonProfile({ match }) {
                                     </Abilities>
                                 </Card>
                                 <Card active={tabEvolution}>
-                                    <Text>Poke evolution</Text>
+                                    {dataEvolvesNames.map(item => (
+                                        item.map(i => (
+                                            <PokeEvolve key={i} pokeIndice={i} func={reqPokemons} />
+                                        ))
+                                    ))}
                                 </Card>
                             </CardBox>
                         </Content>
