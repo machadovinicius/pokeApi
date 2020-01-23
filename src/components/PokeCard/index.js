@@ -13,28 +13,21 @@ export default function PokeCard(props) {
     const [dataTypes, setDataType] = useState([]);
     const [pokeIndice, setPokeIndice] = useState('');
 
-    const getPokeId = (url) => {
-        let [, id] = url.split("/pokemon/");
-        return id;
-    }
-
-    const reqAPI = async () => {
-        let id = getPokeId(url);
-        const response = await api.get(`pokemon/${id}`);
-
-        const [indice,] = id.split("/");
-        const pokemons = response.data;
-        const types = response.data.types;
-
-        setPokeIndice(indice);
-        setDataPokemon(pokemons);
-        setDataType(types);
-        setLoading(false);
-    }
-
     useEffect(() => {
+        const reqAPI = async () => {
+            let [, id] = url.split("/pokemon/");
+            const response = await api.get(`pokemon/${id}`);
+            const [indice,] = id.split("/");
+            const pokemons = response.data;
+            const types = response.data.types;
+
+            setPokeIndice(indice);
+            setDataPokemon(pokemons);
+            setDataType(types);
+            setLoading(false);
+        }
         reqAPI();
-    }, [loading]);
+    }, [loading, url]);
 
     return (
         <>

@@ -22,6 +22,6 @@ export const Title = styled.h1`
 export const Pagination = styled.h1`
     width: 100%;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
 `;
 

@@ -45,11 +45,23 @@ export const ListMenu = styled.ul`
     z-index: 3;
     top: 0;
     left: ${props => props.active ? '0' : '-3500px'};
-    padding: 10% 0;
+    padding: 20% 0;
     background: #ef5350;
     transition: all 1s ease-in-out;
     img{
         margin-bottom: 30px;
+    }
+`;
+
+export const Close = styled.div`
+    position: absolute;
+    right: 10%  ;
+    top: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    img{
+        width: 30px;
     }
 `;
 export const Item = styled.li`
@@ -57,7 +69,10 @@ export const Item = styled.li`
     width: 80%;
     text-align: center;
     padding: 15px 0;
-    background: #fff;
     border-top: 1px solid #ef5350;
-    color: #ef5350;
+    a{
+        color: #fff;
+        font-weight: bold;
+        font-size: 18px;
+    }
 `;

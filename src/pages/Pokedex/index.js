@@ -49,7 +49,7 @@ export default function Pokedex() {
         <>
             <Header />
             <Container>
-                <Title>Esta é a sua Pokedex</Title>
+                <Title>This is your Pokedex</Title>
                 <Pagination>
                     <ArrowButton fuc={previousPageReq} label="Previous" />
                     <ArrowButton func={nextPageReq} label="Next" />

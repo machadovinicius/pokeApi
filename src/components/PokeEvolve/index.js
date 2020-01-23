@@ -8,21 +8,22 @@ import { Link } from 'react-router-dom';
 import api from '../../services/api';
 
 export default function PokeEvolve(props) {
-    const { pokeIndice, func } = props;
+    const { pokeIndice } = props;
     const [pokeImg, setPokeImg] = useState('');
     const [typeEolve, setTypeEolve] = useState('');
     const [loading, setLoading] = useState(true);
 
-    const getImage = async () => {
-        const response = await api.get(`pokemon/${pokeIndice}`);
-        const primaryType = response.data.types[0].type.name;
-        setTypeEolve(primaryType);
-        setPokeImg(response.data.sprites.front_default);
-        setLoading(false);
-    }
     useEffect(() => {
+        const getImage = async () => {
+            const response = await api.get(`pokemon/${pokeIndice}`);
+            const primaryType = response.data.types[0].type.name;
+            const pokeImg = response.data.sprites.front_default;
+            setTypeEolve(primaryType);
+            setPokeImg(pokeImg);
+            setLoading(false);
+        }
         getImage();
-    }, [loading]);
+    }, [loading, pokeIndice]);
 
     return (
         <>
@@ -32,7 +33,7 @@ export default function PokeEvolve(props) {
                     :
                     <Container>
                         <Item><Image src={evolteTo} alt="Evolves to" /></Item>
-                        <Link to={`/pokemonProfile/${pokeIndice}`} onClick={func}>
+                        <Link to={`/pokemonProfile/${pokeIndice}`}>
                             <Card type={typeEolve}>
                                 <Circle><Image src={pokeImg} alt={pokeIndice} /></Circle>
                                 <Item>{pokeIndice}</Item>

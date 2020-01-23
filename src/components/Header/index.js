@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 
 import pokemonLogo from '../../assets/pokemon_logo.png';
+import CloseIcon from '../../assets/left-arrow.png';
 
-import { Container, NavBar, Image, Menu, ListMenu, Item } from './styles';
+import { Link } from 'react-router-dom';
+
+import { Container, NavBar, Image, Menu, ListMenu, Item, Close } from './styles';
 
 export default function Header() {
     const [activeMenu, setActiveMenu] = useState(false);
@@ -14,17 +17,17 @@ export default function Header() {
     return (
         <Container>
             <NavBar>
-                <Image src={pokemonLogo} alt="Logo pokemon" />
+                <Link to="/"><Image src={pokemonLogo} alt="Logo pokemon" /></Link>
                 <Menu onClick={handleMenu}>
                     <span></span>
                     <span></span>
                     <span></span>
                 </Menu>
                 <ListMenu active={activeMenu}>
-                    <span onClick={handleMenu}>x</span>
-                    <Image src={pokemonLogo} alt="Logo pokemon" />
-                    <Item>Pokedex</Item>
-                    <Item>Berries</Item>
+                    <Close onClick={handleMenu}><Image src={CloseIcon} alt="Close" /></Close>
+                    <Link to="/"><Image src={pokemonLogo} alt="Logo pokemon" /></Link>
+                    <Item><Link to="/">Pokedex</Link></Item>
+                    <Item><Link to="/berries">Berries</Link></Item>
                 </ListMenu>
             </NavBar>
         </Container>
